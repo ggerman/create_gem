@@ -1,54 +1,66 @@
-# 🚀 Ruby Gem Generator with Thor
+# 🚀 Ruby Gem Scaffold with Docker and PostgreSQL
 
 ## Overview
-Creating a Ruby gem from scratch can be repetitive. This repository provides a Thor-based script to automate the setup process, allowing you to quickly generate a new Ruby gem structure with essential files and version control.
+This repository provides a Docker-based scaffold for developing Ruby gems with PostgreSQL integration. Using Docker ensures a clean, isolated, and reproducible development environment.
 
 ## Features
-- Automatically creates the gem directory structure.
-- Generates a `.gemspec` file using a template.
-- Initializes a `lib/` folder and main Ruby file.
-- Optionally adds a GNU 3 License.
-- Initializes a Git repository.
+- Dockerized Ruby environment for gem development.
+- PostgreSQL integration.
+- Automated gem scaffold generation with `bundler`.
+- Pre-configured best practices for gem development.
 
-## Installation
-Ensure you have Thor installed:
+## Prerequisites
+Ensure you have the following installed:
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
+## Setup
+Clone the repository and navigate into the directory:
 ```sh
-gem install thor
+git clone https://github.com/your-username/create_gem.git
+cd create_gem
 ```
 
-Clone the repository:
+Build and start the Docker containers:
 ```sh
-git clone https://github.com/your-username/ruby-gem-generator.git
-cd ruby-gem-generator
-chmod +x generator
+docker-compose up -d
 ```
 
 ## Usage
-To generate a new Ruby gem, run:
+To generate a new Ruby gem scaffold, run:
 ```sh
-./generator my_gem
+docker-compose run --rm rails bash
+bundler gem my_gem --test=rspec
 ```
-This will create the following structure:
-```sh
-my_gem/
-  ├── my_gem.gemspec
-  ├── lib/
-  │   └── my_gem.rb
-  ├── LICENSE (if selected)
-  ├── .git/
+This creates a new gem structure inside the container with RSpec for testing.
+
+## File Structure
+```
+create_gem/
+  ├── Dockerfile
+  ├── docker-compose.yml
+  ├── local_development/
+  ├── .root/
+  ├── my_gem/ (generated gem)
 ```
 
 ## Configuration
-The generator uses templates located in the `templates/` folder:
-- `template.gemspec.tt` → Generates the `.gemspec` file.
-- `main.rb.tt` → Generates the main Ruby file for the gem.
-- `GNULICENSE` → The optional GNU license file.
+- The `Dockerfile` sets up the Ruby environment with dependencies.
+- The `docker-compose.yml` defines the services for PostgreSQL and the Ruby environment.
+- The PostgreSQL database is configured with default credentials (`psql/psql`).
+
+## Stopping the Environment
+To stop the running containers:
+```sh
+docker-compose down
+```
 
 ## Contributing
-Pull requests are welcome! If you find any issues or have suggestions, feel free to open an issue.
+Pull requests are welcome! Feel free to submit issues or feature requests.
 
 ## License
-This project is licensed under the MIT License.
+This project is licensed under the GNU GENERAL PUBLIC LICENSE.
+
 
 ---
 
